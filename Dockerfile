@@ -1,10 +1,20 @@
-FROM centos:latest
+FROM ubuntu:latest
 LABEL maintainer="Herve Meftah dockerlite@gmail.com"
 
 # install package and monitoring tool
-RUN yum -y update && \
-    yum -y install epel-release && \
-    yum -y install wget unzip git htop iotop iftop
+#RUN yum -y update && \
+#    yum -y install epel-release && \
+#    yum -y install wget unzip git htop iotop iftop
+
+
+RUN apt-get update && apt-get upgrade
+RUN apt-get install software-properties-common
+
+
+RUN wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/11.0.1+13/90cf5d8f270a4347a95050320eef3fb7/jdk-11.0.1_linux-x64_bin.tar.gz
+RUN mkdir /opt/java
+RUN tar -zxf jdk-11.0.1_linux-x64_bin.tar.gz -C /opt/java
+
 
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
